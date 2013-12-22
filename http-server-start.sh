@@ -7,7 +7,7 @@
 # Marcus Vinicius Ferreira               ferreira.mv[ at ]gmail.com
 #
 
-[ -z "$1" ] && {
+usage() {
     echo
     echo "Usage: $0 [port]"
     echo
@@ -17,12 +17,17 @@
     exit 2
 }
 
-port=${1:=8000}
+port="$1"
+port=${port:=8000}
+
+echo
+echo "Using port: ${port}"
+echo
 
 # Ref:
 #     http://www.commandlinefu.com/commands/view/71/serve-current-directory-tree-at-httphostname8000
 #
-python -m SimpleHTTPServer ${port}
+python -m SimpleHTTPServer ${port} || usage
 
 # vim:ft=sh:
 

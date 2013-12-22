@@ -22,101 +22,52 @@ machine_dir="/VMachine"
 machine_name="$1"
 machine_name="${machine_name:?'Cannot be null'}"
 
+machine_path="${machine_dir}/${machine_name}.vmwarevm"
+
+# Seed reference
+ref="linux-64-bits"
+ref_dir="${machine_dir}/${ref}.vmwarevm"
+ref_path="${ref_dir}/${ref}.vmx"
+
 #
 # New Machine
 #
-VBoxManage createvm \
-    --name $machine_name    \
-    --ostype Linux26_64     \
-    --register
+[ -d "${machine_dir}/${machine_name}.vmwarevm" ] && {
 
-#
-# Server settings
-#     CentOS 5.x: 256M  - install/run
-#     CentOS 6.x: 1024M - for install phase
-#
-VBoxManage modifyvm          \
-    $machine_name            \
-    --memory  1024           \
-    --cpus       2           \
-    --vram       5           \
-    --acpi       off         \
-    --ioapic     on          \
-    --pae        off         \
-    --nestedpaging on        \
-    --largepages   off       \
-    --vtxvpid      on        \
-    --rtcuseutc    on        \
-    --monitorcount       1   \
-    --accelerate3d       off \
-    --accelerate2dvideo  off \
-    --firmware bios          \
-    --chipset  piix3         \
-    --boot1    disk          \
-    --boot2    dvd           \
-    --boot3    none          \
-    --boot4    none          \
-    --mouse    ps2           \
-    --keyboard ps2           \
-    --uart1    off           \
-    --uart2    off           \
-    --audio    none          \
-    --usb      off           \
-    --usbehci  off           \
-    --vrde     off           \
-    --teleporter off         \
-    # --nictype1         Am79C970A \
-    # --nic2             hostonly  \
-    # --hostonlyadapter2 vboxnet0  \
-    # --nictype2         82540EM   \
-    # --cableconnected2  on        \
+    echo
+    echo "Destination already exists. Aborting."
+    echo
+    exit 2
+}
 
+cp -r "${ref_dir}" "${machine_dir}/${machine_name}.vmwarevm"
 
-#
-# SATA disk: 10G
-#
-VBoxManage createhd         \
-    --filename ${machine_dir}/${machine_name}/${machine_name}.vmdk  \
-    --size   10240          \
-    --format  VMDK          \
-    --variant Standard
+# rename
+for f in vmx vmxf plist vmsd
+do
 
-VBoxManage storagectl   \
-    $machine_name       \
-    --name "SATA Controller" \
-    --add sata               \
-    --controller IntelAhci   \
-    --sataportcount 1        \
-    --bootable on
+  [ -f ${machine_path}/${ref}.${f} ] &&  \
+  /bin/mv ${machine_path}/${ref}.${f}       \
+          ${machine_path}/${machine_name}.${f}
 
-VBoxManage storageattach            \
-    $machine_name                   \
-    --storagectl "SATA Controller"  \
-    --port 0             \
-    --type hdd --medium ${machine_dir}/${machine_name}/${machine_name}.vmdk
+done
 
-#
-# DVD image to boot
-#
-VBoxManage storagectl       \
-    $machine_name           \
-    --name "IDE Controller" \
-    --add ide               \
-    --bootable on
+# change content
+for f in ${machine_path}/${machine_name}.* ${machine_path}/*.plist
+do
 
-VBoxManage storageattach            \
-    $machine_name                   \
-    --storagectl "IDE Controller"   \
-    --device 1 --port 1             \
-    --type dvddrive --medium "$dvd"
+  [ -s ${f} ] && \
+  perl -pi -e "s/${ref}/${machine_name}/g" ${f}
 
+done
 
-#
-# Boot order
-#
-# VBoxManage modifyvm          \
-#     $machine_name            \
-#     --boot1 disk --boot2 dvd
+# change iso
+perl -pi -e "s|(ide1\:0\.fileName =) .*|\$1 \"$dvd\"|" \
+     "${machine_path}/${machine_name}.vmx"
+
+# register machine by starting it.
+vmrun -T fusion start "${machine_path}/${machine_name}.vmx"
+
 
 # vim:ft=sh:
 
