@@ -1,0 +1,48 @@
+
+yum grouplist
+
+yum –y groupinstall "Base" "Development Libraries" "Development Tools"
+yum –y groupinstall "Base"
+
+
+yum groupinstall "Desktop" "X Window System" "Fonts" "Desktop Platform"
+yum groupinstall "General Purpose Desktop" "Graphical Administration Tools"
+
+
+
+ltm: less than minimal
+
+                        62      63      64      65      fedora19
+ltm
+    %packages --nobase --excludedocs --ignoremissing
+    @core
+    openssh-clients
+    openssh-server
+                    -   203     204     205     211     231
+
+minimal
+    %packages
+    @core
+    @server-policy
+                    -           202
+
+
+10240: 10239
+
+
+%packages --nodefaults
+
+
+%pre --log=/root/pre.log
+
+%post --log=/root/post.log
+
+
+/Applications/VMware Fusion.app/Contents/Library/
+
+
+
+http://wiki.centos.org/About/Product
+
+
+vmrun -T fusion list
