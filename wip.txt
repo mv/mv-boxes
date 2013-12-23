@@ -1,8 +1,14 @@
 
-yum grouplist
+yum grouplist | more
+
+yum groupinfo "E-mail server"
+yum groupinfo "Security Tools"
+
 
 yum –y groupinstall "Base" "Development Libraries" "Development Tools"
 yum –y groupinstall "Base"
+
+yum -y groupremove "Desktop"
 
 
 yum groupinstall "Desktop" "X Window System" "Fonts" "Desktop Platform"
