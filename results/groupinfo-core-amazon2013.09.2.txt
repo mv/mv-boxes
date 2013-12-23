@@ -1,0 +1,45 @@
+Loaded plugins: priorities, update-motd, upgrade-helper
+
+Group: Core
+ Group-Id: core
+ Description: Smallest possible installation
+ Mandatory Packages:
+    audit
+    authconfig
+    basesystem
+    bash
+    coreutils
+    cpio
+    dracut
+    e2fsprogs
+    ed
+    file
+    filesystem
+    glibc
+    hmaccalc
+    initscripts
+    iproute
+    iptables
+    iputils
+    ncurses
+    ncurses-libs
+    passwd
+    procps
+    readline
+    rootfiles
+    rpm
+    rsyslog
+    setserial
+    setup
+    shadow-utils
+    system-release
+    upstart
+    vim-minimal
+ Default Packages:
+    kernel
+    ntp
+    sysfsutils
+    yum
+ Optional Packages:
+   +ecryptfs-utils
+    sgpio

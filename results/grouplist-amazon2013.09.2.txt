@@ -1,0 +1,28 @@
+Loaded plugins: priorities, update-motd, upgrade-helper
+Available Groups:
+   Console internet tools
+   DNS Name Server
+   Development Libraries
+   Development tools
+   Editors
+   FTP Server
+   Java Development
+   Legacy UNIX compatibility
+   Mail Server
+   MySQL Database
+   MySQL Database client
+   NFS file server
+   Network Servers
+   Networking Tools
+   PHP Support
+   Performance Tools
+   Perl Support
+   PostgreSQL Database client (version 8)
+   PostgreSQL Database server (version 8)
+   Scientific support
+   System Tools
+   TeX support
+   Technical Writing
+   Web Server
+   Web Servlet Engine
+Done
