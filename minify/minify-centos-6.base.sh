@@ -1,5 +1,5 @@
 ###
-### yum grouplist Base
+### yum groupinfo Base
 ###
 
 [ "$1" == "-y" ] && force="$1"
@@ -13,7 +13,6 @@
    at                       \
    authconfig               \
    bc                       \
-   bind-utils               \
    centos-indexhtml         \
    dbus                     \
    ed                       \
@@ -28,6 +27,7 @@
    tmpwatch                 \
    traceroute               \
 
+#  bind-utils               \
 #  crontabs                 \
 #  cyrus-sasl-plain         \
 #  file                     \
@@ -117,7 +117,7 @@
    PyPAM                          \
    audispd-plugins                \
    brltty                         \
-   cpupowerutils                  \
+   cpufreqrutils                  \
    device-mapper-persistent-data  \
    dos2unix                       \
    dumpet                         \
@@ -127,7 +127,6 @@
    gpm                            \
    kabi-yum-plugins               \
    kernel-doc                     \
-   linuxptp                       \
    logwatch                       \
    mkbootdisk                     \
    mtools                         \
@@ -160,5 +159,12 @@
    yum-plugin-versionlock         \
    yum-presto                     \
    zsh                            \
+
+
+
+# 6.4:
+/usr/bin/yum $force remove  \
+   cpupowerutils                  \
+   linuxptp                       \
 
 

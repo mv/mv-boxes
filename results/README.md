@@ -19,6 +19,9 @@ Package differences between releases...
     + libpciaccess
     + libpciaccess-0.13.1-2.el6.x86_64
 
+    + cpupowerutils
+    + linuxptp
+
 
 
 ## CentOS 6.4 -> CentOS 6.5
@@ -29,6 +32,9 @@ Package differences between releases...
     + pam-1.1.1-17.el6.x86_64
     + pkgconfig-0.23-9.1.el6.x86_64
     + shared-mime-info-0.70-4.el6.x86_64
+
+    - rhnsd
+    - yum-rhn-plugin
 
 
 

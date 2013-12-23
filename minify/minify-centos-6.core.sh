@@ -1,5 +1,5 @@
 ###
-### yum grouplist Core
+### yum groupinfo Core
 ###
 
 [ "$1" == "-y" ] && force="$1"
@@ -16,6 +16,9 @@
    kbd                      \
    selinux-policy           \
    selinux-policy-targeted  \
+   rhnsd                    \
+   yum-rhn-plugin           \
+
 
 
 #  basesystem
