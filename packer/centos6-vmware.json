@@ -1,0 +1,25 @@
+
+{
+  "variables": {
+    "datetime": ""
+  },
+  "builders": [
+    { "type":          "vmware",
+      "guest_os_type": "other26xlinux-64",
+      "vm_name":            "centos65_{{timestamp}}",
+      "iso_url":            "/pub/iso/centos/CentOS-6.5-x86_64-bin-DVD1.iso",
+      "iso_checksum":       "83221db52687c7b857e65bfe60787838",
+      "iso_checksum_type":  "md5",
+      "ssh_username":     "root",
+      "ssh_password":     "vagrant",
+      "ssh_wait_timeout": "30m",
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "boot_wait":    "5s",
+      "boot_command": ["<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks/fedora-base.cfg<enter>"],
+      "disk_size": "10240",
+      "headless": "false",
+      "http_directory": ".."
+    }
+  ]
+}
+

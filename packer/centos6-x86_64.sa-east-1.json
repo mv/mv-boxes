@@ -1,0 +1,33 @@
+
+{
+  "variables": {
+    "datetime": "",
+    "region":   "sa-east-1",
+    "my_ami":   "ami-c99130d4",
+    "sg_id":    "sg-a4424ac6"
+  },
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [ "sleep 30", "sudo yum repolist all", "sudo yum update -y" ]
+    }
+  ],
+  "builders": [
+    { "type":       "amazon-ebs",
+      "region":     "{{user `region`}}",
+      "source_ami": "{{user `my_ami`}}",
+      "ami_name":        "centos6_base_{{user `datetime`}}",
+      "ami_description": "CentOS 6 x86_64, updated to {{isotime}}",
+      "instance_type":     "c1.medium",
+      "ssh_username":      "ec2-user",
+      "security_group_id": "{{user `sg_id`}}",
+      "ami_block_device_mappings": [
+        { "device_name": "/dev/sdb", "virtual_name": "ephemeral0" },
+        { "device_name": "/dev/sdc", "virtual_name": "ephemeral1" }
+      ],
+      "tags": { "Name": "amazon-linux" },
+      "ssh_timeout": "10m"
+    }
+  ]
+}
+
